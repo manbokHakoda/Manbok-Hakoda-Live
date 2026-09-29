@@ -1,0 +1,4347 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HAKODA MANBOK — Digital History Project">
+<title>HAKODA MANBOK | Digital History</title>
+
+<style>
+/* =========================================================
+   HAKODA MANBOK — DIGITAL HISTORY PROJECT
+   SINGLE FILE VERSION
+   HTML + CSS + JAVASCRIPT
+   ========================================================= */
+
+:root{
+  --bg:#07111f;
+  --bg2:#0b1728;
+  --card:rgba(16,31,52,.82);
+  --card2:#10233c;
+  --text:#edf6ff;
+  --muted:#9eafc4;
+  --line:rgba(255,255,255,.10);
+  --gold:#e8bb5d;
+  --gold2:#ffda86;
+  --cyan:#50d9e8;
+  --green:#6ee7b7;
+  --red:#fb7185;
+  --shadow:0 25px 70px rgba(0,0,0,.35);
+  --radius:24px;
+  --max:1200px;
+  --header:76px;
+}
+
+html.light{
+  --bg:#f4f8fc;
+  --bg2:#e8eef6;
+  --card:rgba(255,255,255,.88);
+  --card2:#ffffff;
+  --text:#122033;
+  --muted:#5e6d80;
+  --line:rgba(20,35,55,.12);
+  --gold:#a96f0b;
+  --gold2:#c68a1d;
+  --cyan:#087e90;
+  --green:#087a5b;
+  --shadow:0 25px 70px rgba(40,60,90,.13);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    Inter,
+    "Noto Sans",
+    "Noto Sans JP",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(80,217,232,.10),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(232,187,93,.10),
+      transparent 30rem
+    ),
+    linear-gradient(135deg,var(--bg),var(--bg2));
+
+  min-height:100vh;
+  transition:.35s;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(calc(100% - 32px),var(--max));
+  margin:auto;
+}
+
+.section{
+  padding:110px 0;
+  position:relative;
+}
+
+.section-title{
+  margin-bottom:45px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--gold2);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+h1,h2,h3{
+  line-height:1.08;
+}
+
+h2{
+  font-size:clamp(2.2rem,5vw,4.3rem);
+  letter-spacing:-.045em;
+  margin-bottom:16px;
+}
+
+h3{
+  font-size:1.35rem;
+  margin-bottom:10px;
+}
+
+p{
+  line-height:1.8;
+}
+
+.lead{
+  color:var(--muted);
+  font-size:1.06rem;
+  max-width:780px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.gold{
+  color:var(--gold2);
+}
+
+.cyan{
+  color:var(--cyan);
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:25px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+}
+
+.grid{
+  display:grid;
+  gap:20px;
+}
+
+.grid3{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.grid4{
+  grid-template-columns:repeat(4,1fr);
+}
+
+.btn{
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  padding:12px 17px;
+  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:800;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  border-color:var(--cyan);
+}
+
+.btn-primary{
+  background:linear-gradient(
+    135deg,
+    var(--gold),
+    var(--gold2)
+  );
+  color:#19140b;
+  border:none;
+}
+
+.btn-cyan{
+  background:linear-gradient(
+    135deg,
+    #45ccd9,
+    #8beaf0
+  );
+  color:#052027;
+  border:none;
+}
+
+.pill{
+  display:inline-flex;
+  padding:7px 11px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--muted);
+  font-size:.73rem;
+  font-weight:800;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--header);
+  z-index:1000;
+
+  background:rgba(7,17,31,.72);
+  border-bottom:1px solid var(--line);
+
+  backdrop-filter:blur(20px);
+}
+
+html.light header{
+  background:rgba(245,248,252,.78);
+}
+
+.nav{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:950;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+
+.logo-mark{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      var(--cyan)
+    );
+
+  color:#07111f;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:3px;
+}
+
+.nav-links a{
+  padding:10px;
+  border-radius:10px;
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:800;
+  transition:.2s;
+  position:relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:var(--text);
+  background:rgba(255,255,255,.05);
+}
+
+.nav-links a.active::after{
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:3px;
+  height:2px;
+  border-radius:10px;
+  background:var(--cyan);
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+}
+
+.lang-select{
+  background:var(--card);
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:9px;
+  border-radius:12px;
+  outline:none;
+  font-weight:800;
+}
+
+.menu-btn{
+  display:none;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+  min-height:100vh;
+  padding-top:var(--header);
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:65px;
+  align-items:center;
+}
+
+.hero h1{
+  font-size:clamp(4rem,9vw,8.5rem);
+  letter-spacing:-.08em;
+  line-height:.84;
+  margin-bottom:28px;
+}
+
+.hero h1 span{
+  display:block;
+}
+
+.gradient-text{
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold2),
+      var(--cyan)
+    );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:28px 0;
+}
+
+.hero-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.hero-visual{
+  min-height:500px;
+  border-radius:40px;
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(232,187,93,.20),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(80,217,232,.17),
+      transparent 17rem
+    ),
+    linear-gradient(
+      145deg,
+      var(--card),
+      rgba(255,255,255,.02)
+    );
+
+  box-shadow:var(--shadow);
+}
+
+.orbit{
+  position:absolute;
+  inset:13%;
+  border:1px solid rgba(80,217,232,.2);
+  border-radius:50%;
+  animation:spin 25s linear infinite;
+}
+
+.orbit2{
+  inset:25%;
+  animation-duration:17s;
+  animation-direction:reverse;
+  border-color:rgba(232,187,93,.22);
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.water-drop{
+  width:155px;
+  height:155px;
+
+  border-radius:
+    55% 55% 60% 60%;
+
+  transform:rotate(45deg);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--cyan),
+      var(--gold)
+    );
+
+  box-shadow:
+    0 0 100px
+    rgba(80,217,232,.22);
+
+  display:grid;
+  place-items:center;
+}
+
+.water-drop span{
+  transform:rotate(-45deg);
+  font-size:2.4rem;
+}
+
+.hero-center{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  text-align:center;
+}
+
+.float{
+  position:absolute;
+  padding:11px 14px;
+  border:1px solid var(--line);
+  background:rgba(7,17,31,.67);
+  backdrop-filter:blur(15px);
+  border-radius:14px;
+  font-size:.75rem;
+  font-weight:800;
+}
+
+html.light .float{
+  background:rgba(255,255,255,.75);
+}
+
+.f1{top:12%;left:8%}
+.f2{top:26%;right:7%}
+.f3{bottom:13%;left:12%}
+.f4{bottom:19%;right:9%}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:30px;
+}
+
+.stat{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:var(--card);
+}
+
+.stat strong{
+  display:block;
+  font-size:1.6rem;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:.72rem;
+}
+
+/* =========================================================
+   FAMILY TREE
+   ========================================================= */
+
+.tree{
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:var(--card);
+  padding:25px;
+  overflow:auto;
+  box-shadow:var(--shadow);
+}
+
+.tree-row{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  min-width:800px;
+  margin:14px 0;
+}
+
+.connector{
+  width:2px;
+  height:25px;
+  background:var(--line);
+  margin:auto;
+}
+
+.person{
+  min-width:150px;
+  padding:17px;
+
+  border:1px solid var(--line);
+  border-radius:18px;
+
+  background:var(--card2);
+  text-align:center;
+
+  cursor:pointer;
+  transition:.25s;
+}
+
+.person:hover,
+.person.selected{
+  transform:translateY(-4px);
+  border-color:var(--cyan);
+  box-shadow:
+    0 12px 40px
+    rgba(80,217,232,.12);
+}
+
+.person small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+}
+
+.tree-info{
+  margin-top:20px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+.timeline{
+  position:relative;
+  margin-top:30px;
+}
+
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:22px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:
+    linear-gradient(
+      var(--gold),
+      var(--cyan),
+      transparent
+    );
+}
+
+.timeline-item{
+  position:relative;
+  padding-left:65px;
+  margin-bottom:24px;
+}
+
+.timeline-dot{
+  position:absolute;
+  left:12px;
+  top:4px;
+
+  width:22px;
+  height:22px;
+  border-radius:50%;
+
+  background:var(--bg2);
+  border:5px solid var(--gold);
+}
+
+.timeline-card{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--card);
+}
+
+.timeline-year{
+  color:var(--gold2);
+  font-weight:900;
+  font-size:.85rem;
+}
+
+/* =========================================================
+   MAP
+   ========================================================= */
+
+.map-layout{
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:20px;
+}
+
+.map-card{
+  min-height:550px;
+  position:relative;
+  overflow:hidden;
+}
+
+.map-svg{
+  width:100%;
+  height:100%;
+  min-height:550px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(80,217,232,.06),
+      transparent 55%
+    ),
+    linear-gradient(
+      145deg,
+      #0b2139,
+      #06101c
+    );
+
+  border-radius:20px;
+}
+
+html.light .map-svg{
+  background:
+    linear-gradient(
+      145deg,
+      #e9f1f7,
+      #dce8f0
+    );
+}
+
+.region{
+  cursor:pointer;
+  transition:.25s;
+  stroke:rgba(255,255,255,.25);
+  stroke-width:1.3;
+}
+
+.region:hover,
+.region.selected{
+  filter:brightness(1.35);
+  stroke:var(--gold2);
+  stroke-width:2.5;
+}
+
+.map-label{
+  fill:var(--text);
+  font-size:12px;
+  font-weight:800;
+  pointer-events:none;
+}
+
+/* =========================================================
+   FLOW
+   ========================================================= */
+
+.flow{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  align-items:center;
+}
+
+.flow-node{
+  min-height:160px;
+  padding:20px;
+
+  display:grid;
+  place-items:center;
+  text-align:center;
+
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--card);
+
+  position:relative;
+}
+
+.flow-node:not(:last-child)::after{
+  content:"→";
+  position:absolute;
+  right:-20px;
+  color:var(--gold2);
+  font-size:1.5rem;
+}
+
+.flow-icon{
+  font-size:2.6rem;
+  margin-bottom:10px;
+}
+
+/* =========================================================
+   PURE WATER
+   ========================================================= */
+
+.pw-box{
+  padding:35px;
+  border-radius:30px;
+  border:1px solid rgba(80,217,232,.18);
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(80,217,232,.18),
+      transparent 18rem
+    ),
+    linear-gradient(
+      135deg,
+      rgba(80,217,232,.08),
+      rgba(232,187,93,.07)
+    ),
+    var(--card);
+}
+
+.day-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:9px;
+  margin-top:25px;
+}
+
+.day{
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
+  padding:15px 8px;
+  text-align:center;
+  transition:.2s;
+}
+
+.day:hover,
+.day.active{
+  border-color:var(--cyan);
+  transform:translateY(-3px);
+}
+
+.day strong{
+  display:block;
+  font-size:1.1rem;
+}
+
+.day small{
+  color:var(--muted);
+}
+
+.day-detail{
+  margin-top:18px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--card);
+}
+
+/* =========================================================
+   ESSAY
+   ========================================================= */
+
+.essay-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.essay-tab{
+  padding:10px 15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--muted);
+  font-weight:800;
+}
+
+.essay-tab.active{
+  color:var(--text);
+  border-color:var(--cyan);
+  background:rgba(80,217,232,.08);
+}
+
+.essay{
+  white-space:pre-line;
+  line-height:2;
+  padding:32px;
+
+  border:1px solid var(--line);
+  border-radius:25px;
+
+  background:var(--card);
+  box-shadow:var(--shadow);
+}
+
+.quote{
+  margin:24px 0;
+  padding:22px;
+
+  border-left:4px solid var(--gold);
+  border-radius:0 18px 18px 0;
+
+  background:rgba(232,187,93,.07);
+}
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.gallery-item{
+  min-height:230px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+
+  position:relative;
+  cursor:pointer;
+
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(80,217,232,.2),
+      transparent 13rem
+    ),
+    linear-gradient(
+      145deg,
+      #102944,
+      #071321
+    );
+
+  transition:.25s;
+}
+
+.gallery-item:hover{
+  transform:translateY(-5px);
+}
+
+.gallery-icon{
+  position:absolute;
+  inset:0;
+
+  display:grid;
+  place-items:center;
+
+  font-size:4rem;
+}
+
+.gallery-caption{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+
+  padding:20px;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,.8)
+    );
+
+  font-weight:900;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-box{
+  display:flex;
+  gap:10px;
+  max-width:800px;
+}
+
+.search-box input{
+  flex:1;
+
+  border:1px solid var(--line);
+  border-radius:15px;
+
+  padding:14px 16px;
+
+  background:var(--card);
+  color:var(--text);
+
+  outline:none;
+}
+
+.search-results{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+
+.search-result{
+  padding:16px 18px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--card);
+}
+
+.search-result small{
+  display:block;
+  color:var(--gold2);
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+/* =========================================================
+   FUTURE
+   ========================================================= */
+
+.future{
+  padding:40px;
+  min-height:400px;
+
+  border:1px solid var(--line);
+  border-radius:30px;
+
+  background:
+    radial-gradient(
+      circle at 75% 40%,
+      rgba(80,217,232,.16),
+      transparent 20rem
+    ),
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(232,187,93,.13),
+      transparent 20rem
+    ),
+    var(--card);
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+
+  z-index:3000;
+
+  background:rgba(0,0,0,.72);
+
+  display:none;
+  place-items:center;
+
+  padding:20px;
+}
+
+.modal-overlay.open{
+  display:grid;
+}
+
+.modal{
+  width:min(720px,100%);
+  max-height:90vh;
+  overflow:auto;
+
+  padding:28px;
+
+  border:1px solid var(--line);
+  border-radius:25px;
+
+  background:var(--bg2);
+  box-shadow:var(--shadow);
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.modal-close{
+  width:40px;
+  height:40px;
+
+  border:none;
+  border-radius:12px;
+
+  background:var(--card);
+  color:var(--text);
+}
+
+.modal-body{
+  color:var(--muted);
+  line-height:1.9;
+  margin-top:18px;
+}
+
+/* =========================================================
+   REVEAL
+   ========================================================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+#backTop{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+
+  width:46px;
+  height:46px;
+
+  border:1px solid var(--line);
+  border-radius:14px;
+
+  background:var(--card);
+  color:var(--text);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.25s;
+
+  z-index:900;
+}
+
+#backTop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+
+  transform:translate(-50%,20px);
+  opacity:0;
+
+  z-index:5000;
+
+  padding:12px 17px;
+
+  border:1px solid var(--line);
+  border-radius:13px;
+
+  background:var(--bg2);
+  color:var(--text);
+
+  transition:.25s;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+  padding:55px 0;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:1000px){
+
+  .nav-links{
+    position:fixed;
+    top:var(--header);
+    left:12px;
+    right:12px;
+
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+
+    padding:12px;
+
+    border:1px solid var(--line);
+    border-radius:20px;
+
+    background:var(--bg2);
+    box-shadow:var(--shadow);
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .nav-links a{
+    padding:13px;
+  }
+
+  .menu-btn{
+    display:grid;
+  }
+
+  .hero-grid,
+  .map-layout{
+    grid-template-columns:1fr;
+  }
+
+  .grid4{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .flow{
+    grid-template-columns:1fr;
+  }
+
+  .flow-node:not(:last-child)::after{
+    content:"↓";
+    right:auto;
+    bottom:-23px;
+    top:auto;
+    left:50%;
+  }
+
+  .day-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+@media(max-width:650px){
+
+  .container{
+    width:calc(100% - 22px);
+  }
+
+  .section{
+    padding:78px 0;
+  }
+
+  .hero h1{
+    font-size:clamp(3.3rem,18vw,5.5rem);
+  }
+
+  .hero-visual{
+    min-height:350px;
+    border-radius:28px;
+  }
+
+  .stats,
+  .grid3,
+  .grid4,
+  .gallery{
+    grid-template-columns:1fr;
+  }
+
+  .day-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .search-box{
+    flex-direction:column;
+  }
+
+  .footer{
+    display:block;
+  }
+
+  .footer-links{
+    margin-top:18px;
+  }
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print{
+
+  header,
+  .hero-buttons,
+  .nav-actions,
+  #backTop,
+  #toast,
+  .modal-overlay,
+  .search-box,
+  .gallery,
+  .essay-tabs,
+  .day-grid,
+  .map-layout,
+  .tree,
+  .future .btn{
+    display:none!important;
+  }
+
+  body{
+    background:#fff!important;
+    color:#111!important;
+  }
+
+  .section{
+    padding:30px 0;
+  }
+
+  .essay{
+    background:#fff;
+    color:#111;
+    box-shadow:none;
+    border:1px solid #ccc;
+    font-size:11pt;
+  }
+
+  .card,
+  .future,
+  .pw-box{
+    background:#fff;
+    box-shadow:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="container nav">
+
+<a href="#home" class="logo">
+  <span class="logo-mark">H</span>
+  <span>HAKODA <span class="gold">MANBOK</span></span>
+</a>
+
+<nav class="nav-links" id="navLinks">
+
+<a href="#home" data-section="home">Home</a>
+<a href="#roots" data-section="roots">Roots</a>
+<a href="#mongolia" data-section="mongolia">13th Century</a>
+<a href="#japanmongolia" data-section="japanmongolia">Japan–Mongolia</a>
+<a href="#family" data-section="family">日蒙家庭</a>
+<a href="#purewater" data-section="purewater">Pure Water</a>
+<a href="#essay" data-section="essay">感想文</a>
+<a href="#future" data-section="future">Future</a>
+
+</nav>
+
+<div class="nav-actions">
+
+<select id="languageSelect" class="lang-select">
+<option value="mn">MN</option>
+<option value="ja">日本語</option>
+<option value="en">EN</option>
+</select>
+
+<button class="icon-btn" id="themeButton">☾</button>
+
+<button class="icon-btn menu-btn" id="menuButton">☰</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero section" id="home">
+
+<div class="container hero-grid">
+
+<div class="reveal">
+
+<div class="eyebrow">
+DIGITAL HISTORY PROJECT · 2026
+</div>
+
+<h1>
+<span>HAKODA</span>
+<span class="gradient-text">MANBOK</span>
+</h1>
+
+<p class="lead" id="heroText">
+Хакода гэр бүлийн түүх → Монголын 13-р зуун →
+Япон–Монголын түүх → 日蒙家庭 →
+Pure Water → ирээдүй.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#roots" class="btn btn-primary">
+Түүхийг эхлүүлэх →
+</a>
+
+<a href="#essay" class="btn">
+感想文 унших
+</a>
+
+<button class="btn btn-cyan" id="printButton">
+📄 PDF / Print
+</button>
+
+</div>
+
+<div class="hero-tags">
+
+<span class="pill">🇲🇳 Монгол</span>
+<span class="pill">🇯🇵 日本</span>
+<span class="pill">💧 Pure Water</span>
+<span class="pill">🌊 一滴 → 川 → 海</span>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong>6</strong>
+<span>үеийн шугам</span>
+</div>
+
+<div class="stat">
+<strong>13C</strong>
+<span>Монголын түүх</span>
+</div>
+
+<div class="stat">
+<strong>14</strong>
+<span>Pure Water өдөр</span>
+</div>
+
+<div class="stat">
+<strong>3</strong>
+<span>хэл</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="hero-visual reveal">
+
+<div class="orbit"></div>
+<div class="orbit orbit2"></div>
+
+<div class="float f1">🧬 家族史</div>
+<div class="float f2">🗺️ 13世紀</div>
+<div class="float f3">🇯🇵🇲🇳 日蒙家庭</div>
+<div class="float f4">💧 Pure Water</div>
+
+<div class="hero-center">
+
+<div>
+
+<div class="water-drop">
+<span>💧</span>
+</div>
+
+<h3 style="margin-top:30px">
+一滴の水 → 川 → 海
+</h3>
+
+<p class="muted">
+One drop → River → Ocean
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ROOTS
+===================================================== -->
+
+<section class="section" id="roots">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">01 · ROOTS</div>
+
+<h2 id="rootsTitle">
+Хакода гэр бүлийн түүх
+</h2>
+
+<p class="lead" id="rootsText">
+Нэг хүний намтар бус, үе үеэр дамжсан дурсамж,
+гэр бүлийн түүх, Япон ба Монголын хоёр талын уулзвар.
+</p>
+
+</div>
+
+
+<div class="tree reveal">
+
+<div class="tree-row">
+
+<div class="person selected" data-person="rokusuke">
+
+<strong>箱田六輔</strong>
+
+<small>
+Rokusuke
+</small>
+
+</div>
+
+</div>
+
+<div class="connector"></div>
+
+
+<div class="tree-row">
+
+<div class="person" data-person="tatsuma">
+
+<strong>辰馬</strong>
+
+<small>Tatsuma</small>
+
+</div>
+
+</div>
+
+<div class="connector"></div>
+
+
+<div class="tree-row">
+
+<div class="person" data-person="gensuke">
+
+<strong>源助</strong>
+
+<small>Gensuke</small>
+
+</div>
+
+</div>
+
+<div class="connector"></div>
+
+
+<div class="tree-row">
+
+<div class="person" data-person="yousuke">
+
+<strong>洋助</strong>
+
+<small>Yousuke</small>
+
+</div>
+
+</div>
+
+<div class="connector"></div>
+
+
+<div class="tree-row">
+
+<div class="person" data-person="ryousuke">
+
+<strong>亮介</strong>
+
+<small>Ryousuke · Father</small>
+
+</div>
+
+<div class="person" data-person="mother">
+
+<strong>母</strong>
+
+<small>Монгол тал</small>
+
+</div>
+
+</div>
+
+<div class="connector"></div>
+
+
+<div class="tree-row">
+
+<div class="person" data-person="manbok">
+
+<strong>箱田満福</strong>
+
+<small>Manbok · 2005–</small>
+
+</div>
+
+</div>
+
+
+<div class="tree-info" id="treeInfo">
+
+<strong>箱田六輔</strong>
+
+<p class="muted">
+Фүкүока болон Мэйжийн үеийн 自由民権運動-тэй
+холбоотой түүхэн хүн. 向陽社 болон 玄洋社-ийн
+түүхийн хүрээнд дурдагддаг.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline reveal">
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">1850</div>
+
+<h3>箱田六輔</h3>
+
+<p class="muted">
+Фүкүока мужийн түүхтэй холбоотой,
+Мэйжийн үеийн 自由民権運動-ийн хүрээнд
+дурдагддаг.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">→</div>
+
+<h3>
+辰馬 → 源助 → 洋助
+</h3>
+
+<p class="muted">
+Гэр бүлийн үе дамжсан шугам.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">20-р зуун</div>
+
+<h3>亮介 / Ryousuke</h3>
+
+<p class="muted">
+Япон талын гэр бүлийн түүхийг
+дараагийн үе рүү холбосон үе.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">2005 →</div>
+
+<h3>箱田満福</h3>
+
+<p class="muted">
+Япон–Монгол хоёр соёлын дунд өсөж,
+гэр бүлийн түүхийг digital хэлбэрээр
+хадгалж буй шинэ үе.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MONGOLIA MAP
+===================================================== -->
+
+<section class="section" id="mongolia">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+02 · MONGOLIA · 13TH CENTURY
+</div>
+
+<h2>
+Монголын 13-р зуун
+</h2>
+
+<p class="lead">
+Схемчилсэн интерактив зураг. Монголын эзэнт гүрний
+түүхэн орон зайг ойлгоход зориулагдсан.
+</p>
+
+</div>
+
+
+<div class="map-layout reveal">
+
+<div class="card map-card">
+
+<svg
+class="map-svg"
+viewBox="0 0 900 560"
+>
+
+<!-- Eurasia -->
+
+<path
+d="
+M70 205
+C130 120 250 85 360 120
+C450 70 570 105 680 145
+C770 170 820 245 795 310
+C835 360 760 425 660 415
+C585 465 470 455 390 420
+C285 470 170 425 125 365
+C70 330 42 260 70 205Z"
+fill="rgba(255,255,255,.04)"
+stroke="rgba(255,255,255,.14)"
+stroke-width="2"
+/>
+
+
+<!-- CENTRAL -->
+
+<path
+id="region-core"
+class="region selected"
+data-region="core"
+d="
+M245 205
+C315 155 410 155 505 190
+L550 275
+L485 350
+L355 345
+L265 300Z"
+fill="rgba(232,187,93,.55)"
+/>
+
+
+<!-- WEST -->
+
+<path
+id="region-west"
+class="region"
+data-region="west"
+d="
+M70 205
+L245 205
+L265 300
+L180 350
+L105 315Z"
+fill="rgba(232,187,93,.22)"
+/>
+
+
+<!-- CENTRAL ASIA -->
+
+<path
+id="region-central"
+class="region"
+data-region="central"
+d="
+M505 190
+L635 185
+L700 235
+L650 330
+L550 275Z"
+fill="rgba(80,217,232,.28)"
+/>
+
+
+<!-- EAST -->
+
+<path
+id="region-east"
+class="region"
+data-region="east"
+d="
+M550 275
+L650 330
+L700 385
+L610 415
+L485 350Z"
+fill="rgba(110,231,183,.23)"
+/>
+
+
+<!-- NORTH -->
+
+<path
+id="region-north"
+class="region"
+data-region="north"
+d="
+M245 205
+L360 120
+L500 135
+L505 190Z"
+fill="rgba(148,163,184,.20)"
+/>
+
+
+<!-- SOUTH -->
+
+<path
+id="region-south"
+class="region"
+data-region="south"
+d="
+M265 300
+L355 345
+L485 350
+L455 430
+L315 415
+L180 350Z"
+fill="rgba(251,113,133,.16)"
+/>
+
+
+<circle
+cx="375"
+cy="260"
+r="7"
+fill="#ffda86"
+/>
+
+<text
+x="388"
+y="264"
+class="map-label"
+>
+Монголын төв
+</text>
+
+
+<circle
+cx="645"
+cy="280"
+r="6"
+fill="#50d9e8"
+/>
+
+<text
+x="658"
+y="284"
+class="map-label"
+>
+Хойд Хятад
+</text>
+
+
+<circle
+cx="730"
+cy="335"
+r="6"
+fill="#6ee7b7"
+/>
+
+<text
+x="743"
+y="339"
+class="map-label"
+>
+Зүүн Ази
+</text>
+
+
+<text
+x="350"
+y="510"
+class="map-label"
+>
+SCHEMATIC · NOT TO SCALE
+</text>
+
+</svg>
+
+</div>
+
+
+<div class="card">
+
+<span class="pill">
+INTERACTIVE REGION
+</span>
+
+<h3
+id="mapTitle"
+style="font-size:1.8rem;margin-top:18px"
+>
+Монголын төв
+</h3>
+
+<p
+id="mapDescription"
+class="muted"
+>
+1206 онд Тэмүжин Чингис хаан болж,
+Их Монгол улсын түүхэн суурь тавигдсан.
+</p>
+
+<div class="quote" id="mapFact">
+1206 — Чингис хаан ба Их Монгол улс.
+</div>
+
+
+<div class="grid" style="grid-template-columns:1fr 1fr">
+
+<button class="btn" data-map="core">
+Төв
+</button>
+
+<button class="btn" data-map="west">
+Баруун
+</button>
+
+<button class="btn" data-map="central">
+Төв Ази
+</button>
+
+<button class="btn" data-map="east">
+Зүүн
+</button>
+
+<button class="btn" data-map="north">
+Хойд
+</button>
+
+<button class="btn" data-map="south">
+Өмнөд
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="grid grid4 reveal" style="margin-top:20px">
+
+<div class="card">
+
+<div style="font-size:2rem">👑</div>
+
+<h3>1206</h3>
+
+<p class="muted">
+Тэмүжин Чингис хаан болж,
+Их Монгол улс байгуулагдав.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2rem">🐎</div>
+
+<h3>Тэлэлт</h3>
+
+<p class="muted">
+Евразийн өргөн уудам нутгийг
+холбосон улс төрийн сүлжээ.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2rem">🛣️</div>
+
+<h3>Торгоны зам</h3>
+
+<p class="muted">
+Худалдаа, дипломат харилцаа,
+соёлын солилцоо өргөжив.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2rem">🌏</div>
+
+<h3>Еврази</h3>
+
+<p class="muted">
+Зүүн Ази ба Европын түүхэн
+холбоосууд хүчтэй болов.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     JAPAN MONGOLIA
+===================================================== -->
+
+<section class="section" id="japanmongolia">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+03 · JAPAN × MONGOLIA
+</div>
+
+<h2>
+Япон–Монголын түүх
+</h2>
+
+<p class="lead">
+Монголын эзэнт гүрний үеэс Япон руу хийсэн
+Юань улсын экспедицүүд хүртэлх түүхэн уулзвар.
+</p>
+
+</div>
+
+
+<div class="timeline reveal">
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">
+1206
+</div>
+
+<h3>
+Их Монгол улс
+</h3>
+
+<p class="muted">
+Тэмүжин Чингис хаан болж,
+Монголын нэгдсэн улс байгуулагдав.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">
+13-р зуун
+</div>
+
+<h3>
+Евразийн холболт
+</h3>
+
+<p class="muted">
+Улс төр, худалдаа, дипломат харилцаа
+Евразийн өргөн нутагт өргөжив.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">
+1274
+</div>
+
+<h3>
+Япон руу хийсэн анхны довтолгоо
+</h3>
+
+<p class="muted">
+Юань улс Японы Кюүшюү рүү
+цэргийн экспедиц илгээв.
+Японы түүхэнд 元寇 гэж тэмдэглэгддэг.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">
+1281
+</div>
+
+<h3>
+Хоёр дахь экспедиц
+</h3>
+
+<p class="muted">
+Юань улсын хоёр дахь томоохон
+цэргийн экспедиц Японд болсон.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="timeline-item">
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-card">
+
+<div class="timeline-year">
+Орчин үе
+</div>
+
+<h3>
+Япон–Монголын шинэ харилцаа
+</h3>
+
+<p class="muted">
+Дипломат, боловсрол, соёл, эдийн засаг,
+спортын харилцааны шинэ үе.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     NICHIMON FAMILY
+===================================================== -->
+
+<section class="section" id="family">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+04 · 日蒙家庭
+</div>
+
+<h2>
+日本とモンゴル、二つの背景
+</h2>
+
+<p class="lead">
+Япон аав + Монгол ээж →
+хоёр соёлын уулзвар →
+өөрийн түүхийг холбох хүсэл.
+</p>
+
+</div>
+
+
+<div class="grid grid3 reveal">
+
+<div class="card">
+
+<div style="font-size:2.5rem">🇯🇵</div>
+
+<h3>
+Япон тал
+</h3>
+
+<p class="muted">
+Хакода гэр бүлийн түүх,
+Фүкүока болон Японы түүхэн орчин,
+үе дамжсан гэр бүлийн дурсамж.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">🇲🇳</div>
+
+<h3>
+Монгол тал
+</h3>
+
+<p class="muted">
+Монгол хэл, соёл, түүх,
+гэр бүлийн орчин болон
+Монголын нүүдэлчин түүхийн өв.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">🌉</div>
+
+<h3>
+Гүүр
+</h3>
+
+<p class="muted">
+Ялгааг арилгах биш,
+ялгааг ойлгож,
+нэгэн том зорилгын төлөө
+хамт алхах.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="pw-box reveal" style="margin-top:20px">
+
+<div class="eyebrow">
+ONE FAMILY
+</div>
+
+<h3 style="font-size:2rem">
+「違いを消すのではなく、違いを理解して、一緒に歩く。」
+</h3>
+
+<p class="lead">
+“Нэг болох” гэдэг нь ялгааг үгүй хийх бус,
+ялгаагаа ойлгож, нэгэн зорилгын төлөө
+хамт алхахыг хэлнэ.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PURE WATER
+===================================================== -->
+
+<section class="section" id="purewater">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+05 · PURE WATER ASSEMBLY
+</div>
+
+<h2>
+14 өдөр — 成長
+</h2>
+
+<p class="lead">
+2026-08-13 → 2026-08-26 ·
+HJ Cheonju Cheonbo Training Center
+</p>
+
+</div>
+
+
+<div class="pw-box reveal">
+
+<div class="grid" style="grid-template-columns:1.2fr .8fr;align-items:center">
+
+<div>
+
+<span class="pill">
+14-DAY KEYWORD
+</span>
+
+<h3 style="font-size:clamp(2.5rem,6vw,5rem);margin:15px 0">
+
+成長
+
+<span class="cyan">
+/ Growth
+</span>
+
+</h3>
+
+<p class="lead">
+Энэ 14 өдрийн турш өөрийгөө эргэцүүлж,
+гэр бүлийн түүхээ дахин харж,
+ирээдүйн зорилгоо тодорхойлох аялал болсон.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<strong>
+Дурсамжийн гурван цэг
+</strong>
+
+<p class="muted" style="margin-top:15px">
+🏛️ 青坡洞原本部教会
+</p>
+
+<p class="muted">
+🌳 孝情天苑
+</p>
+
+<p class="muted">
+🏛️ 天苑宮・天一聖殿
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="day-grid reveal" id="dayGrid"></div>
+
+
+<div class="day-detail reveal" id="dayDetail">
+
+<strong>
+1-р өдөр
+</strong>
+
+<p class="muted">
+Эхлэл: “Би хаанаас ирсэн бэ?”
+гэсэн асуултаар өөрийгөө эргэн харах.
+</p>
+
+</div>
+
+
+<div class="grid grid3 reveal" style="margin-top:20px">
+
+<div class="card">
+
+<div style="font-size:2.5rem">🙏</div>
+
+<h3>
+青坡洞原本部教会
+</h3>
+
+<p class="muted">
+Тэнд залбирч, уйлж,
+True Parents намайг угтаж,
+хүлээж байгаа мэт хүчтэй
+мэдрэмж төрсөн.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">🌳</div>
+
+<h3>
+孝情天苑
+</h3>
+
+<p class="muted">
+Гэр бүл, итгэл, дурсамжийн
+холбоог эргэцүүлсэн орон зай.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">🏛️</div>
+
+<h3>
+天苑宮・天一聖殿
+</h3>
+
+<p class="muted">
+Ах эгч, дүү нартайгаа
+нэгэн гэр бүл мэт холбогдож
+байгаагаа мэдэрсэн.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ONE DROP
+===================================================== -->
+
+<section class="section" id="flow">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+06 · CORE METAPHOR
+</div>
+
+<h2>
+一滴の水 → 川 → 海
+</h2>
+
+<p class="lead">
+Нэг хүнээс гэр бүл,
+гэр бүлээс ард түмэн,
+ард түмнээс хүн төрөлхтөн рүү.
+</p>
+
+</div>
+
+
+<div class="flow reveal">
+
+<div class="flow-node">
+
+<div>
+
+<div class="flow-icon">
+💧
+</div>
+
+<strong>
+一滴
+</strong>
+
+<p class="muted">
+Нэг хүн
+</p>
+
+</div>
+
+</div>
+
+
+<div class="flow-node">
+
+<div>
+
+<div class="flow-icon">
+👨‍👩‍👦
+</div>
+
+<strong>
+Гэр бүл
+</strong>
+
+<p class="muted">
+Өв + хайр
+</p>
+
+</div>
+
+</div>
+
+
+<div class="flow-node">
+
+<div>
+
+<div class="flow-icon">
+🌊
+</div>
+
+<strong>
+川
+</strong>
+
+<p class="muted">
+Хамтын зам
+</p>
+
+</div>
+
+</div>
+
+
+<div class="flow-node">
+
+<div>
+
+<div class="flow-icon">
+🌏
+</div>
+
+<strong>
+Дэлхий
+</strong>
+
+<p class="muted">
+Япон + Монгол
+</p>
+
+</div>
+
+</div>
+
+
+<div class="flow-node">
+
+<div>
+
+<div class="flow-icon">
+🌊
+</div>
+
+<strong>
+海
+</strong>
+
+<p class="muted">
+Хүн төрөлхтөн
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ESSAY
+===================================================== -->
+
+<section class="section" id="essay">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+07 · 感想文
+</div>
+
+<h2>
+Pure Water Assembly — 感想文
+</h2>
+
+<p class="lead">
+Монгол / 日本語 / English
+</p>
+
+</div>
+
+
+<div class="essay-tabs reveal">
+
+<button
+class="essay-tab active"
+data-essay="mn"
+>
+🇲🇳 Монгол
+</button>
+
+<button
+class="essay-tab"
+data-essay="ja"
+>
+🇯🇵 日本語
+</button>
+
+<button
+class="essay-tab"
+data-essay="en"
+>
+🇬🇧 English
+</button>
+
+</div>
+
+
+<article
+class="essay reveal"
+id="essayContent"
+>
+</article>
+
+<br>
+
+<button
+class="btn btn-primary"
+id="printEssay"
+>
+📄 PDF / Print Essay
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section class="section" id="gallery">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+08 · GALLERY
+</div>
+
+<h2>
+Photo / Video Gallery
+</h2>
+
+<p class="lead">
+Өөрийн зураг, видео материалаа дараа нь
+энэ хэсэгт холбож болно.
+</p>
+
+</div>
+
+
+<div class="gallery reveal">
+
+
+<div
+class="gallery-item"
+data-gallery="青坡洞原本部教会"
+>
+
+<div class="gallery-icon">
+🏛️
+</div>
+
+<div class="gallery-caption">
+青坡洞原本部教会
+</div>
+
+</div>
+
+
+<div
+class="gallery-item"
+data-gallery="孝情天苑"
+>
+
+<div class="gallery-icon">
+🌳
+</div>
+
+<div class="gallery-caption">
+孝情天苑
+</div>
+
+</div>
+
+
+<div
+class="gallery-item"
+data-gallery="天苑宮・天一聖殿"
+>
+
+<div class="gallery-icon">
+🏛️
+</div>
+
+<div class="gallery-caption">
+天苑宮・天一聖殿
+</div>
+
+</div>
+
+
+<div
+class="gallery-item"
+data-gallery="Japan Mongolia"
+>
+
+<div class="gallery-icon">
+🇯🇵🇲🇳
+</div>
+
+<div class="gallery-caption">
+Japan × Mongolia
+</div>
+
+</div>
+
+
+<div
+class="gallery-item"
+data-gallery="Family History"
+>
+
+<div class="gallery-icon">
+🧬
+</div>
+
+<div class="gallery-caption">
+Family History
+</div>
+
+</div>
+
+
+<div
+class="gallery-item"
+data-gallery="Pure Water"
+>
+
+<div class="gallery-icon">
+💧
+</div>
+
+<div class="gallery-caption">
+Pure Water Assembly
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<section class="section" id="search">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+09 · SEARCH
+</div>
+
+<h2>
+Түүхээс хайх
+</h2>
+
+<p class="lead">
+Жишээ: 六輔, Монгол, Pure Water, 1206,
+日蒙家庭.
+</p>
+
+</div>
+
+
+<div class="search-box reveal">
+
+<input
+id="searchInput"
+type="search"
+placeholder="Search the digital history..."
+>
+
+<button
+class="btn btn-primary"
+id="searchButton"
+>
+🔎 Search
+</button>
+
+</div>
+
+
+<div
+class="search-results"
+id="searchResults"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FUTURE
+===================================================== -->
+
+<section class="section" id="future">
+
+<div class="container">
+
+<div class="future reveal">
+
+<div class="eyebrow">
+10 · FUTURE
+</div>
+
+<h2>
+Хоёр ард түмнийг холбох гүүр
+</h2>
+
+<p class="lead">
+Миний хүсэл бол Япон–Монголын хооронд,
+мөн 韓民族–モンゴル民族 хооронд
+харилцан ойлголцлыг холбох гүүр болох.
+</p>
+
+
+<div class="quote">
+
+真のお母様と一つになり、2世・3世が価値と才能で世界中を驚かせ、地上天国に希望を知らせる。
+
+</div>
+
+
+<p class="lead">
+
+Миний хувьд ирээдүй гэдэг нь өнгөрснийг
+мартах биш. Өнгөрснөө ойлгож,
+өнөөдөр өөрийгөө хөгжүүлж,
+дараагийн үед үнэ цэнэ болон
+итгэл найдвар дамжуулах явдал.
+
+</p>
+
+
+<div class="hero-buttons">
+
+<a
+href="#home"
+class="btn btn-primary"
+>
+↑ Эхлэл
+</a>
+
+<button
+class="btn"
+id="copyLink"
+>
+🔗 Энэ хэсгийн холбоос
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     METHODOLOGY
+===================================================== -->
+
+<section class="section" id="sources">
+
+<div class="container">
+
+<div class="section-title reveal">
+
+<div class="eyebrow">
+11 · SOURCE & METHOD
+</div>
+
+<h2>
+Түүхийг хэрхэн унших вэ?
+</h2>
+
+<p class="lead">
+Түүхэн баримт, гэр бүлийн дурсамж,
+хувийн эргэцүүллийг ялгаж харуулах зарчим.
+</p>
+
+</div>
+
+
+<div class="grid grid3 reveal">
+
+<div class="card">
+
+<div style="font-size:2.5rem">
+📜
+</div>
+
+<h3>
+Түүхэн баримт
+</h3>
+
+<p class="muted">
+Он, үйл явдал, байгууллага зэрэг
+баримтжсан мэдээлэл.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">
+👪
+</div>
+
+<h3>
+Гэр бүлийн дурсамж
+</h3>
+
+<p class="muted">
+Гэр бүлээс дамжсан яриа,
+дурсамжийг тусад нь тэмдэглэнэ.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div style="font-size:2.5rem">
+💭
+</div>
+
+<h3>
+Хувийн эргэцүүлэл
+</h3>
+
+<p class="muted">
+Pure Water болон гэр бүлийн
+түүхээс төрсөн өөрийн мэдрэмж,
+ирээдүйн зорилго.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="container footer">
+
+<div>
+
+<strong>
+HAKODA MANBOK
+</strong>
+
+<p>
+Digital History Project ·
+<span id="currentYear"></span>
+</p>
+
+</div>
+
+
+<div class="footer-links">
+
+<a href="#roots">Roots</a>
+<a href="#mongolia">13th Century</a>
+<a href="#purewater">Pure Water</a>
+<a href="#essay">感想文</a>
+<a href="#future">Future</a>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+class="modal-overlay"
+id="modal"
+>
+
+<div class="modal">
+
+<div class="modal-header">
+
+<div>
+
+<div
+class="eyebrow"
+id="modalEyebrow"
+>
+DETAIL
+</div>
+
+<h3 id="modalTitle"></h3>
+
+</div>
+
+<button
+class="modal-close"
+id="modalClose"
+>
+✕
+</button>
+
+</div>
+
+
+<div
+class="modal-body"
+id="modalBody"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<button id="backTop">
+↑
+</button>
+
+<div id="toast"></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+const $ = (selector, root=document) =>
+  root.querySelector(selector);
+
+const $$ = (selector, root=document) =>
+  [...root.querySelectorAll(selector)];
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const savedTheme =
+  localStorage.getItem("hakoda-theme") || "dark";
+
+function setTheme(theme){
+
+  document.documentElement.classList.toggle(
+    "light",
+    theme === "light"
+  );
+
+  localStorage.setItem(
+    "hakoda-theme",
+    theme
+  );
+
+  $("#themeButton").textContent =
+    theme === "light" ? "☀" : "☾";
+}
+
+setTheme(savedTheme);
+
+$("#themeButton").addEventListener(
+  "click",
+  ()=>{
+
+    const light =
+      document.documentElement.classList.contains("light");
+
+    setTheme(
+      light ? "dark" : "light"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+$("#menuButton").addEventListener(
+  "click",
+  ()=>{
+    $("#navLinks").classList.toggle("open");
+  }
+);
+
+$$(".nav-links a").forEach(
+  link=>{
+
+    link.addEventListener(
+      "click",
+      ()=>{
+        $("#navLinks").classList.remove("open");
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   LANGUAGE SYSTEM
+========================================================= */
+
+const languageData = {
+
+mn:{
+hero:
+"Хакода гэр бүлийн түүх → Монголын 13-р зуун → Япон–Монголын түүх → 日蒙家庭 → Pure Water → ирээдүй.",
+
+rootsTitle:
+"Хакода гэр бүлийн түүх",
+
+rootsText:
+"Нэг хүний намтар бус, үе үеэр дамжсан дурсамж, гэр бүлийн түүх, Япон ба Монголын хоёр талын уулзвар."
+},
+
+ja:{
+hero:
+"箱田家の歴史 → モンゴル13世紀 → 日本とモンゴルの歴史 → 日蒙家庭 → Pure Water → 未来。",
+
+rootsTitle:
+"箱田家の歴史",
+
+rootsText:
+"一人の人物だけではなく、世代を越えて受け継がれる家族の記憶と、日本・モンゴルの二つの背景をたどります。"
+},
+
+en:{
+hero:
+"The Hakoda family story → 13th-century Mongolia → Japan–Mongolia history → Japan–Mongolia family → Pure Water → Future.",
+
+rootsTitle:
+"The Hakoda Family Story",
+
+rootsText:
+"More than a biography: a journey through family memory, generations, and the meeting point of Japan and Mongolia."
+}
+
+};
+
+function setLanguage(lang){
+
+  localStorage.setItem(
+    "hakoda-language",
+    lang
+  );
+
+  $("#languageSelect").value=lang;
+
+  $("#heroText").textContent =
+    languageData[lang].hero;
+
+  $("#rootsTitle").textContent =
+    languageData[lang].rootsTitle;
+
+  $("#rootsText").textContent =
+    languageData[lang].rootsText;
+
+  renderEssay(lang);
+}
+
+$("#languageSelect").addEventListener(
+  "change",
+  e=>setLanguage(e.target.value)
+);
+
+
+/* =========================================================
+   FAMILY TREE
+========================================================= */
+
+const people={
+
+rokusuke:{
+title:"箱田六輔",
+text:
+"1850–1888. Фүкүока болон Мэйжийн үеийн 自由民権運動-ийн хүрээнд дурдагддаг түүхэн хүн. 向陽社 болон 玄洋社-ийн түүхтэй холбоотой."
+},
+
+tatsuma:{
+title:"辰馬",
+text:
+"Хакода гэр бүлийн дараагийн үеийн холбоос болгон тэмдэглэгддэг нэр."
+},
+
+gensuke:{
+title:"源助",
+text:
+"Хакода гэр бүлийн угсааны дараагийн үе."
+},
+
+yousuke:{
+title:"洋助",
+text:
+"Хакода гэр бүлийн дараагийн үеийн хүн."
+},
+
+ryousuke:{
+title:"亮介 / Ryousuke",
+text:
+"Мөнбокийн эцэг. Япон талын гэр бүлийн түүхийг 日蒙家庭-тэй холбох чухал үе."
+},
+
+mother:{
+title:"母 / Монгол тал",
+text:
+"Мөнбокийн ээж Монгол хүн. Монгол хэл, соёлын тал нь 日蒙家庭-ийн нөгөө үндэс."
+},
+
+manbok:{
+title:"箱田満福 / Manbok",
+text:
+"2005 онд төрсөн. Япон–Монгол гэр бүлийн хоёр талын түүхийг холбож, digital history project хэлбэрээр хадгалж буй шинэ үе."
+}
+
+};
+
+$$(".person").forEach(
+  person=>{
+
+    person.addEventListener(
+      "click",
+      ()=>{
+
+        const data =
+          people[person.dataset.person];
+
+        $$(".person").forEach(
+          p=>p.classList.remove("selected")
+        );
+
+        person.classList.add("selected");
+
+        $("#treeInfo").innerHTML=`
+
+          <strong>
+            ${data.title}
+          </strong>
+
+          <p class="muted">
+            ${data.text}
+          </p>
+
+        `;
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MONGOLIA MAP
+========================================================= */
+
+const mapData={
+
+core:{
+title:"Монголын төв",
+description:
+"1206 онд Тэмүжин Чингис хаан болж, Их Монгол улсын түүхэн суурь тавигдсан төв бүс.",
+fact:"1206 — Чингис хаан ба Их Монгол улс."
+},
+
+west:{
+title:"Баруун бүс",
+description:
+"Монголын эзэнт гүрний баруун тийш тэлэлт нь Төв Ази, Иран болон цааш Европын түүхтэй холбогдов.",
+fact:"Евразийн баруун чиглэлийн түүхэн холболт."
+},
+
+central:{
+title:"Төв Ази",
+description:
+"Төв Азийн замууд нь худалдаа, дипломат харилцаа, соёлын солилцооны чухал орон зай байв.",
+fact:"Торгоны замын олон салаа замтай огтлолцоно."
+},
+
+east:{
+title:"Зүүн бүс",
+description:
+"Зүүн Азийн бүс нь Хятадын Юань улсын түүх болон Японтой хийсэн харилцаатай холбогдоно.",
+fact:"1274, 1281 — Японтой хийсэн цэргийн экспедицүүд."
+},
+
+north:{
+title:"Хойд бүс",
+description:
+"Монголын хойд талын өргөн тал нутаг нь нүүдлийн мал аж ахуй, улс төрийн төвлөрлийн суурь орчин байв.",
+fact:"Тал нутгийн нүүдлийн соёлын орон зай."
+},
+
+south:{
+title:"Өмнөд бүс",
+description:
+"Өмнөд чиглэл нь Хятадын түүхэн улс төрийн орон зайтай шууд холбогдож байв.",
+fact:"Юань улсын түүхтэй холбоотой."
+}
+
+};
+
+function selectMap(key){
+
+  const data =
+    mapData[key];
+
+  $("#mapTitle").textContent =
+    data.title;
+
+  $("#mapDescription").textContent =
+    data.description;
+
+  $("#mapFact").textContent =
+    data.fact;
+
+  $$(".region").forEach(
+    r=>r.classList.remove("selected")
+  );
+
+  const region =
+    document.getElementById(
+      "region-"+key
+    );
+
+  if(region)
+    region.classList.add("selected");
+}
+
+$$(".region").forEach(
+  region=>{
+
+    region.addEventListener(
+      "click",
+      ()=>{
+        selectMap(
+          region.dataset.region
+        );
+      }
+    );
+
+  }
+);
+
+$$("[data-map]").forEach(
+  button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+        selectMap(
+          button.dataset.map
+        );
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PURE WATER 14 DAYS
+========================================================= */
+
+const days=[
+
+["1","Эхлэл",
+"“Би хаанаас ирсэн бэ?” гэсэн асуултаар өөрийгөө эргэн харах."],
+
+["2","Roots",
+"Өвөг дээдэс, гэр бүлийн нэр, үе дамжсан дурсамжийг эргэн харах."],
+
+["3","Japan",
+"Япон талын гэр бүлийн түүх болон Хакода овгийн түүхийг судлах."],
+
+["4","Mongolia",
+"Монгол хэл, соёл, түүхтэйгээ дахин холбогдох."],
+
+["5","13-р зуун",
+"Монголын 13-р зуун, Чингис хаан, Евразийн түүхийг эргэцүүлэх."],
+
+["6","Japan × Mongolia",
+"Япон–Монголын түүхэн уулзваруудыг харах."],
+
+["7","Family",
+"日蒙家庭 гэдэг өөрийн амьдрал дахь утгыг бодох."],
+
+["8","青坡洞",
+"Залбирч, дурсамжтайгаа нүүр тулсан өдөр."],
+
+["9","孝情天苑",
+"Гэр бүл, хамтын амьдрал, итгэлийн холбоог эргэцүүлэх."],
+
+["10","天苑宮",
+"Нэгэн гэр бүл мэт ах эгч, дүү нартайгаа холбогдох."],
+
+["11","Growth",
+"“成長” — дотоод өсөлт гэж юу болохыг тодорхойлох."],
+
+["12","Training",
+"清平で精誠を積みながら自分を鍛えている гэсэн бодлыг хэрэгжүүлэх."],
+
+["13","Future",
+"Ирээдүйд ямар гүүр болохыг хүсэж байгаагаа тодорхойлох."],
+
+["14","Ocean",
+"一滴の水→川→海 — өөрийн жижиг алхмыг хүн төрөлхтний том түүхтэй холбох."]
+
+];
+
+const dayGrid =
+  $("#dayGrid");
+
+days.forEach(
+  (day,index)=>{
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "day"+(
+        index===0 ? " active" : ""
+      );
+
+    button.innerHTML=`
+
+      <strong>
+        ${day[0]}
+      </strong>
+
+      <small>
+        ${day[1]}
+      </small>
+
+    `;
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        $$(".day").forEach(
+          d=>d.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        $("#dayDetail").innerHTML=`
+
+          <strong>
+            ${day[0]}-р өдөр · ${day[1]}
+          </strong>
+
+          <p class="muted">
+            ${day[2]}
+          </p>
+
+        `;
+
+      }
+    );
+
+    dayGrid.appendChild(button);
+
+  }
+);
+
+
+/* =========================================================
+   ESSAY — THREE LANGUAGES
+========================================================= */
+
+const essays={
+
+mn:`Анх танилцаж байна. Би, Япон–Монгол гэр бүлийн ерөөлт хоёр дахь үеийн хүүхэд, Хакода Мөнбок буюу япон хэлээр 箱田満福（はこだ・まんぼく） гэдэг.
+
+Миний эцэг Япон хүн, эх Монгол хүн. Миний эцэг, эх 1998 оны 6-р сарын 13-нд Нью-Йоркийн Madison Square Garden-д болсон 3億6千万組国際祝福結婚式-д оролцож, ерөөлөөр нэгэн гэр бүлийг байгуулсан.
+
+2026 оны 8-р сарын 13-наас 8-р сарын 26-ны хооронд HJ Cheonju Cheonbo Training Center-д болсон Pure Water Assembly-д оролцохдоо би “成長 — өсөлт” гэдэг үгийг өөрийн 14 өдрийн гол түлхүүр болгосон.
+
+Энэ 14 өдрийн турш би өөрийн өнөөдрийн амьдрал санамсаргүй бий болоогүй гэдгийг улам гүн ойлгосон. Энэ нь өвөг дээдсээс үргэлжилсэн гэр бүлийн түүх, Япон ба Монгол хоёр ард түмний түүх, мөн өөрийн туулж буй замтай холбоотой.
+
+Хүн төрөлхтний түүхийг эргэн харахад Ноагийн үер, Бабелийн цамхагийн тухай түүхээр дамжин хүмүүсийн тархалт, хэл, ард түмний ялгаа бий болсон тухай ойлголтыг эргэцүүлдэг. Ялгаа бий болсон ч хүн төрөлхтөн нэг гэр бүл гэсэн хүсэл алга болоогүй.
+
+Монголын түүхийг судлахад 13-р зуун онцгой байр суурь эзэлдэг. 1206 онд Тэмүжин Чингис хаан болж, Их Монгол улсын түүхэн суурь тавигдсан. Дараа нь Евразийн өргөн уудам орон зай улс төр, худалдаа, соёлын холбоогоор холбогдсон. Юань улсын үед 1274 болон 1281 онд Япон руу цэргийн экспедицүүд хийгдсэн нь Япон–Монголын түүхийн нэгэн огтлолцол болсон.
+
+Энэ түүхийг өөрийн гэр бүлийн түүхтэй холбож бодоход би “түүх бол зөвхөн өнгөрсөн зүйл биш” гэдгийг ойлгосон. Өнгөрсөн түүх өнөөдрийн биднийг ойлгох нэг түлхүүр болдог.
+
+Миний эцгийн талд 箱田六輔 хэмээх хүн байсан. Түүний дараах гэр бүлийн шугамыг 辰馬 → 源助 → 洋助 → 亮介 → 満福 гэж тэмдэглэн судалж байна. 箱田六輔 нь Фүкүока болон Мэйжийн үеийн 自由民権運動-ийн түүхтэй холбоотой хүн бөгөөд 向陽社 болон 玄洋社-ийн түүхийн хүрээнд дурдагддаг.
+
+Гэхдээ гэр бүлийн түүхийг судлахдаа баримт болон гэр бүлийн дурсамжийг ялгаж харах хэрэгтэй гэж би боддог. Зарим зүйл нь албан ёсны баримттай, зарим нь гэр бүлээс дамжин ирсэн яриа юм. Тиймээс би аль алиныг нь хүндэтгэн хадгалахыг хүсдэг.
+
+Миний хувьд хамгийн чухал зүйл бол Япон ба Монгол гэсэн хоёр өөр тал миний амьдралд хэрхэн нэгэн гэр бүл болон уулзсаныг ойлгох явдал юм. Би ялгааг арилгахыг хүсдэггүй. Харин ялгааг ойлгож, нэгэн зорилгын төлөө хамт алхахыг хүсдэг.
+
+Pure Water Assembly-ийн үеэр 青坡洞原本部教会-д очиход би залбирч, уйлсан. Тэр үед True Parents намайг угтаж, намайг хүлээж байгаа мэт хүчтэй мэдрэмж төрсөн. Мөн 孝情天苑 болон 天苑宮・天一聖殿-д очихдоо ах эгч, дүү нартайгаа нэгэн гэр бүл мэт холбогдож байгаагаа мэдэрсэн.
+
+Миний 14 өдрийн түлхүүр үг “成長” байсан. Өөрөөр хэлбэл зөвхөн мэдлэг нэмэх бус, өөрийгөө дотроосоо хөгжүүлэх тухай байлаа. Би 清平で精誠を積みながら自分を鍛えている гэсэн бодлыг өөрийн замын нэг хэсэг гэж хардаг.
+
+Миний хувьд “一滴の水→川→海” гэдэг дүрслэл маш чухал. Нэг дусал ус ганцаараа жижиг мэт боловч олон дусал нийлж гол болж, эцэст нь далайтай нийлдэг. Нэг хүн → гэр бүл → ард түмэн → хүн төрөлхтөн гэсэн зам ч мөн адил.
+
+Миний ирээдүйн мөрөөдөл бол Япон–Монголын хооронд, мөн 韓民族–モンゴル民族 хоорондын гүүр болох. Өөрийн хоёр талын түүхийг ойлгож, дараагийн үед илүү их ойлголцол, хүндлэл, итгэл найдвар үлдээхийг хүсдэг.
+
+真のお母様と一つになり、2世・3世が価値と才能で世界中を驚かせ、地上天国に希望を知らせる。
+
+「真の父母によって誕生した多くの祝福家庭を通して、二世・三世・四世圏のピュアウォーターたちが、あなたの地上天国の姿を世界中に知らせるために世界へ出ています。」
+
+Миний түүх энд дуусахгүй. Нэг дусал ус гол болж, гол далай болдог шиг миний өнөөдрийн жижиг алхам ирээдүйд илүү том холбоосын нэг хэсэг болно гэж би хүсдэг.`,
+
+ja:`初めまして。私は、日蒙家庭の祝福二世、箱田満福（はこだ・まんぼく）です。
+
+私の父は日本人、母はモンゴル人です。私の両親は、1998年6月13日にニューヨークのマディソン・スクエア・ガーデンで行われた3億6千万組国際祝福結婚式に参加し、祝福によって一つの家庭を築きました。
+
+2026年8月13日から8月26日まで、HJ Cheonju Cheonbo Training Centerで行われたPure Water Assemblyに参加し、私は14日間のキーワードを「成長」としました。
+
+この14日間を通して、私は自分が今ここにいることは決して偶然ではないと、以前より深く感じるようになりました。それは、先祖から続いてきた家族の歴史、日本とモンゴルという二つの民族の歴史、そして自分自身が歩んでいる道とつながっていると思います。
+
+人類の歴史を振り返ると、ノアの洪水やバベルの塔の物語を通して、人々が広がり、言語や民族の違いが生まれていったことを考えます。違いが生まれたとしても、人類が一つの家族になるという願いがなくなったわけではないと思います。
+
+モンゴルの歴史を学ぶと、13世紀は特に重要な時代です。1206年、テムジンがチンギス・ハーンとなり、モンゴル帝国の基礎が築かれました。その後、ユーラシアの広い地域が政治、交易、文化などのつながりを通して結ばれていきました。さらに元朝の時代には、1274年と1281年に日本への遠征が行われ、日本とモンゴルの歴史が交差しました。
+
+この歴史を自分の家族の歴史と重ねて考えると、私は「歴史は単なる過去ではない」と感じます。過去を知ることは、今の自分がどこから来たのかを理解する一つの鍵になるからです。
+
+私の父方には、箱田六輔という人物がいます。その後の家族の系譜を、辰馬 → 源助 → 洋助 → 亮介 → 満福として調べています。箱田六輔は福岡の歴史や明治期の自由民権運動と関係する人物として知られ、向陽社や玄洋社の歴史の中でも語られています。
+
+しかし、家族史を調べる中で、私は史料によって確認できる事実と、家族から受け継いだ記憶を区別することも大切だと考えるようになりました。どちらも自分のルーツを理解するための大切な一部として、丁寧に残していきたいと思います。
+
+私にとって特に大切なのは、日本とモンゴルという二つの背景が、私の人生の中で一つの家庭として出会った意味を考えることです。私は違いを消したいのではありません。違いを理解しながら、一つの大きな目的に向かって一緒に歩みたいと思っています。
+
+Pure Water Assemblyの中で、青坡洞原本部教会を訪れた時、私は祈りながら涙を流しました。その時、真の父母が私を迎え、私を待ってくださっているような強い感覚を持ちました。また、孝情天苑、天苑宮・天一聖殿を訪れた時には、兄弟姉妹と一つの家族のようにつながっていることを感じました。
+
+私の14日間のキーワードは「成長」でした。それは単に知識を増やすことではなく、自分自身を内面から成長させることでした。清平で精誠を積みながら自分を鍛えているという思いを、自分の歩みの一部として大切にしています。
+
+私にとって「一滴の水→川→海」というイメージはとても大切です。一滴の水は小さく見えても、多くの水滴が集まれば川となり、やがて海につながります。一人の人から家庭へ、家庭から民族へ、民族から人類へという流れも、同じように考えることができます。
+
+私の夢は、日本とモンゴルの間、そして韓民族とモンゴル民族の間に立つ橋となることです。二つの背景を持つ自分だからこそできることを考え、次の世代に理解、尊重、希望を伝えていきたいと思います。
+
+真のお母様と一つになり、2世・3世が価値と才能で世界中を驚かせ、地上天国に希望を知らせる。
+
+「真の父母によって誕生した多くの祝福家庭を通して、二世・三世・四世圏のピュアウォーターたちが、あなたの地上天国の姿を世界中に知らせるために世界へ出ています。」
+
+私の物語はここで終わりません。一滴の水が川となり、川が海へつながるように、今日の小さな一歩も、未来の大きなつながりの一部になっていくことを願っています。`,
+
+en:`Nice to meet you. My name is Hakoda Manbok, a second-generation blessed child from a Japan–Mongolia family.
+
+My father is Japanese and my mother is Mongolian. My parents participated in the International Blessing Marriage Ceremony for 360 million couples held at Madison Square Garden in New York on June 13, 1998, and built a family through the Blessing.
+
+I participated in the Pure Water Assembly held at HJ Cheonju Cheonbo Training Center from August 13 to August 26, 2026. I chose “成長 — Growth” as my keyword for the fourteen days.
+
+Through those fourteen days, I came to feel more deeply that my being here today is not something I should see as an isolated coincidence. I see it in connection with the family history that came before me, the histories of Japan and Mongolia, and the path I am walking today.
+
+When I look back at human history, I reflect on the stories of Noah’s flood and the Tower of Babel, and on how people spread out and developed different languages and peoples. Even when differences appeared, I believe the hope for humanity to become one family did not disappear.
+
+When I study Mongolian history, the thirteenth century has a special significance. In 1206, Temüjin became Genghis Khan and the foundations of the Mongol Empire were established. Over time, large parts of Eurasia became connected through political, commercial, cultural, and diplomatic networks. During the Yuan period, expeditions were also launched against Japan in 1274 and 1281, creating one of the important historical intersections between Japan and the Mongol world.
+
+When I connect this history with my own family history, I realize that history is not simply something that belongs to the past. Understanding the past can be one of the keys to understanding where we come from today.
+
+On my father’s side, there is a historical figure named Hakoda Rokusuke, written 箱田六輔. I am tracing the family line as Tatsuma → Gensuke → Yousuke → Ryousuke → Manbok. Rokusuke is associated with the history of Fukuoka and the Freedom and People’s Rights Movement of the Meiji period, and is discussed in connection with the histories of Koyosha and Genyosha.
+
+At the same time, studying family history has taught me to distinguish between documented historical facts and memories passed down within a family. I want to preserve both carefully while making clear which is which.
+
+For me, one of the most important questions is what it means that two different backgrounds — Japan and Mongolia — met in my life as one family. I do not want to erase differences. I want to understand differences and learn how to walk together toward a larger purpose.
+
+During the Pure Water Assembly, when I visited the original headquarters church in Cheongpa-dong, I prayed and cried. I felt strongly as if True Parents were welcoming me and waiting for me. At Hyojeong Cheonwon and Cheonwon Palace and Cheon Il Sanctum, I also felt connected with my brothers and sisters as one family.
+
+My keyword for the fourteen days was “成長 — Growth.” For me, this was not simply about gaining knowledge. It was about developing myself from within. I value the thought that I am training myself while accumulating sincere devotion in Cheongpyeong.
+
+The image “一滴の水→川→海 — One drop of water → River → Ocean” is especially meaningful to me. A single drop may look small, but many drops come together to form a river, and a river eventually reaches the ocean. In the same way, one person can connect to a family, a family to a people, and peoples to humanity.
+
+My dream is to become a bridge between Japan and Mongolia, and also between the Korean and Mongolian peoples. Because I have two backgrounds, I want to think about what I can contribute and pass on greater understanding, respect, and hope to the next generation.
+
+真のお母様と一つになり、2世・3世が価値と才能で世界中を驚かせ、地上天国に希望を知らせる。
+
+I also carry the following passage as part of my vision for the future:
+
+「真の父母によって誕生した多くの祝福家庭を通して、二世・三世・四世圏のピュアウォーターたちが、あなたの地上天国の姿を世界中に知らせるために世界へ出ています。」
+
+My story does not end here. Just as a drop of water becomes part of a river and a river connects to the sea, I hope that the small steps I take today will become part of a larger connection in the future.`
+};
+
+
+/* =========================================================
+   ESSAY RENDER
+========================================================= */
+
+function renderEssay(language){
+
+  $("#essayContent").textContent =
+    essays[language];
+
+  $$(".essay-tab").forEach(
+    tab=>{
+      tab.classList.toggle(
+        "active",
+        tab.dataset.essay === language
+      );
+    }
+  );
+}
+
+$$(".essay-tab").forEach(
+  tab=>{
+
+    tab.addEventListener(
+      "click",
+      ()=>{
+        renderEssay(
+          tab.dataset.essay
+        );
+      }
+    );
+
+  }
+);
+
+const savedLanguage =
+  localStorage.getItem(
+    "hakoda-language"
+  ) || "mn";
+
+$("#languageSelect").value =
+  savedLanguage;
+
+setLanguage(savedLanguage);
+
+
+/* =========================================================
+   GALLERY MODAL
+========================================================= */
+
+function openModal(
+  title,
+  body,
+  label="DETAIL"
+){
+
+  $("#modalTitle").textContent =
+    title;
+
+  $("#modalBody").textContent =
+    body;
+
+  $("#modalEyebrow").textContent =
+    label;
+
+  $("#modal").classList.add(
+    "open"
+  );
+
+  document.body.classList.add(
+    "modal-open"
+  );
+}
+
+function closeModal(){
+
+  $("#modal").classList.remove(
+    "open"
+  );
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+}
+
+$("#modalClose").addEventListener(
+  "click",
+  closeModal
+);
+
+$("#modal").addEventListener(
+  "click",
+  event=>{
+
+    if(
+      event.target ===
+      event.currentTarget
+    ){
+      closeModal();
+    }
+
+  }
+);
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key==="Escape"){
+      closeModal();
+    }
+
+  }
+);
+
+$$(".gallery-item").forEach(
+  item=>{
+
+    item.addEventListener(
+      "click",
+      ()=>{
+
+        openModal(
+          item.dataset.gallery,
+          "Энэ хэсэг нь gallery placeholder юм. Өөрийн зураг, видео материалаа дараа нь энэ хэсэгт холбож болно.",
+          "GALLERY"
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+const searchData=[
+
+[
+"Roots",
+"箱田六輔",
+"1850 · Fukuoka · 向陽社 · 玄洋社"
+],
+
+[
+"Family",
+"辰馬 → 源助 → 洋助 → 亮介 → 満福",
+"Hakoda family genealogy"
+],
+
+[
+"Mongolia",
+"1206",
+"Temüjin · Genghis Khan · Mongol Empire"
+],
+
+[
+"Japan–Mongolia",
+"1274",
+"元寇 · Japan · Yuan"
+],
+
+[
+"Japan–Mongolia",
+"1281",
+"元寇 · Japan · Yuan"
+],
+
+[
+"Family",
+"日蒙家庭",
+"Japanese father · Mongolian mother"
+],
+
+[
+"Pure Water",
+"2026-08-13 → 2026-08-26",
+"HJ Cheonju Cheonbo Training Center"
+],
+
+[
+"Pure Water",
+"成長",
+"14-day keyword"
+],
+
+[
+"Pure Water",
+"青坡洞原本部教会",
+"Prayer · reflection"
+],
+
+[
+"Pure Water",
+"孝情天苑",
+"Hyojeong Cheonwon"
+],
+
+[
+"Pure Water",
+"天苑宮・天一聖殿",
+"Family connection"
+],
+
+[
+"Theme",
+"一滴の水→川→海",
+"One drop · River · Ocean"
+],
+
+[
+"Future",
+"人類一家族世界",
+"Humanity as one family"
+]
+
+];
+
+function search(){
+
+  const query =
+    $("#searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const output =
+    $("#searchResults");
+
+  output.innerHTML="";
+
+  if(!query){
+
+    output.innerHTML=
+      `<div class="search-result">
+        Хайх үгээ оруулна уу.
+      </div>`;
+
+    return;
+  }
+
+  const results =
+    searchData.filter(
+      item=>
+        item.join(" ")
+          .toLowerCase()
+          .includes(query)
+    );
+
+  if(!results.length){
+
+    output.innerHTML=
+      `<div class="search-result">
+        Илэрц олдсонгүй.
+      </div>`;
+
+    return;
+  }
+
+  results.forEach(
+    result=>{
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "search-result";
+
+      div.innerHTML=`
+
+        <small>
+          ${result[0]}
+        </small>
+
+        <strong>
+          ${result[1]}
+        </strong>
+
+        <p class="muted">
+          ${result[2]}
+        </p>
+
+      `;
+
+      output.appendChild(div);
+
+    }
+  );
+
+}
+
+$("#searchButton").addEventListener(
+  "click",
+  search
+);
+
+$("#searchInput").addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key==="Enter"){
+      search();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   PRINT / PDF
+========================================================= */
+
+$("#printButton").addEventListener(
+  "click",
+  ()=>{
+    window.print();
+  }
+);
+
+$("#printEssay").addEventListener(
+  "click",
+  ()=>{
+    location.hash="essay";
+
+    setTimeout(
+      ()=>{
+        window.print();
+      },
+      300
+    );
+  }
+);
+
+
+/* =========================================================
+   COPY FUTURE URL
+========================================================= */
+
+$("#copyLink").addEventListener(
+  "click",
+  async()=>{
+
+    const url =
+      location.href.split("#")[0]
+      + "#future";
+
+    try{
+
+      await navigator.clipboard
+        .writeText(url);
+
+      showToast(
+        "Future хэсгийн холбоос хууллаа."
+      );
+
+    }catch(error){
+
+      showToast(url);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    $("#toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer =
+    setTimeout(
+      ()=>{
+        toast.classList.remove(
+          "show"
+        );
+      },
+      2200
+    );
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(
+        entry=>{
+
+          if(entry.isIntersecting){
+
+            entry.target
+              .classList
+              .add("visible");
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.08
+    }
+  );
+
+$$(".reveal").forEach(
+  element=>
+    revealObserver.observe(
+      element
+    )
+);
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections =
+  $$("main section[id]");
+
+const navigation =
+  $$(".nav-links a");
+
+const navObserver =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(
+        entry=>{
+
+          if(
+            entry.isIntersecting
+          ){
+
+            navigation.forEach(
+              link=>{
+
+                link.classList.toggle(
+                  "active",
+                  link.dataset.section ===
+                  entry.target.id
+                );
+
+              }
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      rootMargin:
+        "-25% 0px -60% 0px"
+    }
+  );
+
+sections.forEach(
+  section=>
+    navObserver.observe(
+      section
+    )
+);
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+const backTop =
+  $("#backTop");
+
+window.addEventListener(
+  "scroll",
+  ()=>{
+
+    backTop.classList.toggle(
+      "show",
+      window.scrollY > 600
+    );
+
+  }
+);
+
+backTop.addEventListener(
+  "click",
+  ()=>{
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  }
+);
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      event.target.matches(
+        "input,textarea,select"
+      )
+    ){
+      return;
+    }
+
+
+    /* L = change language */
+
+    if(
+      event.key.toLowerCase()
+      === "l"
+    ){
+
+      const languages =
+        ["mn","ja","en"];
+
+      const current =
+        languages.indexOf(
+          $("#languageSelect").value
+        );
+
+      const next =
+        languages[
+          (current+1)
+          %
+          languages.length
+        ];
+
+      setLanguage(next);
+
+      showToast(
+        "Language: "
+        + next.toUpperCase()
+      );
+
+    }
+
+
+    /* / = search */
+
+    if(event.key === "/"){
+
+      event.preventDefault();
+
+      location.hash =
+        "search";
+
+      setTimeout(
+        ()=>{
+          $("#searchInput")
+            .focus();
+        },
+        200
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   DEEP LINKS
+========================================================= */
+
+function handleHash(){
+
+  const id =
+    location.hash.substring(1);
+
+  if(!id){
+    return;
+  }
+
+  const element =
+    document.getElementById(id);
+
+  if(element){
+
+    setTimeout(
+      ()=>{
+        element.scrollIntoView({
+          behavior:"smooth"
+        });
+      },
+      150
+    );
+
+  }
+
+}
+
+window.addEventListener(
+  "hashchange",
+  handleHash
+);
+
+handleHash();
+
+
+/* =========================================================
+   CURRENT YEAR
+========================================================= */
+
+$("#currentYear")
+  .textContent =
+  new Date()
+    .getFullYear();
+
+
+/* =========================================================
+   INITIAL MAP
+========================================================= */
+
+selectMap("core");
+
+
+/* =========================================================
+   CONSOLE INFO
+========================================================= */
+
+console.log(
+  "HAKODA MANBOK — Digital History Project loaded."
+);
+
+console.log(
+  "Shortcuts: L = language, / = search"
+);
+
+</script>
+
+</body>
+</html>
